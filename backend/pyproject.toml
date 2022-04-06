@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "negative-emotions-diary"
+version = "0.1.0"
+description = ""
+authors = ["Dong-Young Kim <31337.persona@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.75.1"
+uvicorn = { extras = ["standard"], version = "^0.17.6" }
+pydantic = { extras = ["email", "dotenv"], version = "^1.9.0" }
+
+[tool.poetry.dev-dependencies]
+mypy = "^0.942"
+black = "^22.3.0"
+isort = "^5.10.1"
+flake8 = "^4.0.1"
+bandit = "^1.7.4"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
