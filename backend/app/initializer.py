@@ -2,6 +2,12 @@ from fastapi import FastAPI
 from tortoise.contrib.fastapi import register_tortoise
 
 
+def init_router(app: FastAPI):
+    from app.routers import user
+
+    app.include_router(user.router)
+
+
 def init_database(app: FastAPI):
     register_tortoise(
         app,
