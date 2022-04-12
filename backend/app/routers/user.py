@@ -1,6 +1,7 @@
+from app.core.auth import get_current_user, get_password_hash
 from app.models.user import User
 from app.schemas.user import UserCreate, UserRead
-from fastapi import APIRouter, HTTPException, Query, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 
 router = APIRouter(
     prefix="/users",
@@ -21,21 +22,13 @@ async def create_user(user_body: UserCreate):
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT, detail="User already exists"
         )
+    user_body.password = get_password_hash(user_body.password)
     user = await User.create(**user_body.dict(exclude_unset=True))
     return user
 
 
-from pydantic import BaseModel
-
-
-class Test(BaseModel):
-    id: str
-    password: str
-
-
-@router.post("/test")
-async def read_user(body: Test):
-    if body.id == "test" and body.password == "pass":
-        return "hello"
-    else:
-        return "bye"
+@router.get(
+    "/auth", response_model=UserRead, status_code=status.HTTP_200_OK, tags=["auth"]
+)
+async def read_authenticated_user(user: User = Depends(get_current_user)):
+    return user
