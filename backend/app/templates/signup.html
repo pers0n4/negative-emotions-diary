@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block body %}
+<main class="container">
+  <article class="grid">
+    <div>
+      <h1>Sign Up</h1>
+      <form onsubmit="submitSignUp(event)">
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          aria-label="Email"
+          autocomplete="email"
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          aria-label="Password"
+          autocomplete="current-password"
+          required
+        />
+        <input
+          type="password"
+          name="password_confirmation"
+          placeholder="Confirm Password"
+          aria-label="Confirm Password"
+          autocomplete="current-password"
+          required
+        />
+        <button type="submit" class="contrast">Register</button>
+      </form>
+    </div>
+  </article>
+</main>
+{% endblock %}
