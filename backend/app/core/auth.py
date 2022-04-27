@@ -5,7 +5,7 @@ from app.models.user import User
 from app.schemas.auth import JwtRegisteredClaim
 from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
-from jose import jwt
+from jose import JWTError, jwt
 from passlib.context import CryptContext
 
 SECRET_KEY = "SECRET"
@@ -44,7 +44,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         claims = JwtRegisteredClaim(**payload)
-    except jwt.JWTError:
+    except JWTError:
         raise HTTPException(status_code=401, detail="Invalid token")
     user = await User.get(id=claims.sub)
     if not user:
