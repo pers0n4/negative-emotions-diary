@@ -1,21 +1,43 @@
-<script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import HelloWorld from "./components/HelloWorld.vue";
-</script>
-
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+  <q-layout view="hhh lpr fFf">
+    <q-header elevated class="bg-primary text-white">
+      <q-toolbar>
+        <q-btn dense flat round icon="mdi-menu" @click="toggleLeftDrawer" />
+
+        <q-toolbar-title>Title</q-toolbar-title>
+      </q-toolbar>
+    </q-header>
+
+    <q-drawer v-model="leftDrawerOpen" side="left" overlay bordered>
+      <!-- drawer content -->
+    </q-drawer>
+
+    <q-page-container>
+      <router-view />
+    </q-page-container>
+  </q-layout>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<script>
+  import { ref } from "vue";
+
+  export default {
+    setup() {
+      const leftDrawerOpen = ref(false);
+
+      return {
+        leftDrawerOpen,
+        toggleLeftDrawer() {
+          leftDrawerOpen.value = !leftDrawerOpen.value;
+        },
+      };
+    },
+
+    data() {
+      return {
+        email: "",
+        password: "",
+      };
+    },
+  };
+</script>
