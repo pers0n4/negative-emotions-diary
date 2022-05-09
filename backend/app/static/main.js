@@ -1,45 +1,46 @@
-async function submitSignIn(event) {
+function readFormData(target = "form") {
+  return new FormData(document.querySelector(target));
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const signInButton = document.querySelector("#sign-in");
+  const signUpButton = document.querySelector("#sign-up");
+
+  signInButton.addEventListener("click", signInButtonClickHandler);
+  signUpButton.addEventListener("click", signUpButtonClickHandler);
+});
+
+async function signInButtonClickHandler(event) {
   event.preventDefault();
 
-  const formData = new FormData(event.target);
-
+  const body = readFormData();
   const response = await fetch("/auth/token", {
     method: "POST",
-    body: formData,
+    body,
   });
 
-  if (response.ok && response.status === 200) {
-    alert("로그인에 성공했습니다.");
+  if (response.ok) {
+    alert("로그인 성공");
   } else {
-    alert("로그인에 실패했습니다.");
+    alert("로그인 실패");
   }
 }
 
-async function submitSignUp(event) {
+async function signUpButtonClickHandler(event) {
   event.preventDefault();
 
-  const formData = new FormData(event.target);
-
-  if (formData.get("password") !== formData.get("password_confirmation")) {
-    alert("패스워드가 일치하지 않습니다.");
-    return;
-  }
-
+  const body = readFormData();
   const response = await fetch("/users", {
     method: "POST",
-    body: JSON.stringify({
-      email: formData.get("email"),
-      password: formData.get("password"),
-    }),
+    body: JSON.stringify(Object.fromEntries(body.entries())),
     headers: {
       "Content-Type": "application/json",
     },
   });
 
-  if (response.ok && response.status === 201) {
-    alert("회원가입이 완료되었습니다.");
-    window.location.href = "/";
-    return;
+  if (response.ok) {
+    alert("가입 성공하였습니다");
+  } else {
+    alert("이미 가입되었습니다");
   }
-  alert(`${response.status} ${response.statusText}`);
 }

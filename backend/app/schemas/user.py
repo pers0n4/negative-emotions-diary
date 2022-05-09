@@ -1,21 +1,21 @@
 from uuid import UUID
 
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel
 
 
 class UserCreate(BaseModel):
-    email: EmailStr
+    username: str
     password: str
 
 
 class UserRead(BaseModel):
     id: UUID
-    email: EmailStr
+    username: str
 
 
 class User(BaseModel):
     id: UUID
-    email: EmailStr
+    username: str
     password: str
 
     class Config:

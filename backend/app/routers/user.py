@@ -17,7 +17,7 @@ async def read_users(limit: int = Query(default=100, le=100), offset: int = 0):
 
 @router.post("", response_model=UserRead, status_code=status.HTTP_201_CREATED)
 async def create_user(user_body: UserCreate):
-    user = await User.get_by_email(user_body.email)
+    user = await User.get_by_username(user_body.username)
     if user:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT, detail="User already exists"

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block body %}
+<main class="container">
+  <article class="grid">
+    <div>
+      <h1>Authentication</h1>
+      <form >
+        <input
+          type="text"
+          name="username"
+          placeholder="Username"
+          aria-label="Username"
+          autocomplete="username"
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          aria-label="Password"
+          required
+        />
+        <div class="grid">
+          <button id="sign-in" class="contrast">로그인</button>
+          <button id="sign-up" class="contrast">회원 가입</button>
+        </div>
+      </form>
+    </div>
+  </article>
+</main>
+{% endblock %}
