@@ -44,6 +44,7 @@
             no-caps
             padding="xs md"
             class="text-bold"
+            @click="signin"
           />
         </q-card-actions>
       </q-card>
@@ -59,6 +60,24 @@
         email: "",
         password: "",
       };
+    },
+    methods: {
+      async signin() {
+        const response = await this.$axios.post(
+          "/auth/token",
+          {
+            username: this.email,
+            password: this.password,
+          },
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          },
+        );
+
+        console.log(response.data);
+      },
     },
   };
 </script>

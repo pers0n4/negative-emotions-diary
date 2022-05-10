@@ -53,6 +53,7 @@
             no-caps
             padding="xs md"
             class="text-bold"
+            @click="signup"
           />
         </q-card-actions>
       </q-card>
@@ -69,6 +70,25 @@
         password: "",
         passwordConfirm: "",
       };
+    },
+    methods: {
+      async signup() {
+        const { email, password, passwordConfirm } = this;
+        if (password !== passwordConfirm) {
+          return alert("Passwords do not match");
+        }
+
+        try {
+          await this.$axios.post("/users", {
+            email,
+            password,
+          });
+
+          this.$router.push("/signin");
+        } catch (error) {
+          alert(error.response.data.message);
+        }
+      },
     },
   };
 </script>
