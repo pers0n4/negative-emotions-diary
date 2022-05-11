@@ -53,7 +53,9 @@
 </template>
 
 <script>
-  export default {
+  import { defineComponent } from "vue";
+
+  export default defineComponent({
     name: "SignInPage",
     data() {
       return {
@@ -79,5 +81,5 @@
         console.log(response.data);
       },
     },
-  };
+  });
 </script>
