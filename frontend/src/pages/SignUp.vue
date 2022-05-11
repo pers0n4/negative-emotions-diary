@@ -63,6 +63,7 @@
 
 <script>
   import { defineComponent } from "vue";
+  import { mapActions } from "vuex";
 
   export default defineComponent({
     name: "SignUpPage",
@@ -74,17 +75,16 @@
       };
     },
     methods: {
+      ...mapActions(["signup"]),
       async signup() {
         const { email, password, passwordConfirm } = this;
+
         if (password !== passwordConfirm) {
           return alert("Passwords do not match");
         }
 
         try {
-          await this.$axios.post("/users", {
-            email,
-            password,
-          });
+          await this.signup({ email, password });
 
           this.$router.push("/signin");
         } catch (error) {

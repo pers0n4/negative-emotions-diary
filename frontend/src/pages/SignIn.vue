@@ -54,6 +54,7 @@
 
 <script>
   import { defineComponent } from "vue";
+  import { mapActions } from "vuex";
 
   export default defineComponent({
     name: "SignInPage",
@@ -64,21 +65,20 @@
       };
     },
     methods: {
+      ...mapActions(["authenticate"]),
       async signin() {
-        const response = await this.$axios.post(
-          "/auth/token",
-          {
-            username: this.email,
-            password: this.password,
-          },
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          },
-        );
+        const { email, password } = this;
 
-        console.log(response.data);
+        try {
+          await this.authenticate({
+            username: email,
+            password,
+          });
+
+          this.$router.push("/");
+        } catch (error) {
+          alert(error.response.data.message);
+        }
       },
     },
   });
