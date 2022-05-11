@@ -1,6 +1,13 @@
-import Axios from "axios";
+import Axios, { AxiosInstance } from "axios";
+import type { Plugin } from "vue";
 
-const axios = Axios.create({
+declare module "@vue/runtime-core" {
+  interface ComponentCustomProperties {
+    $axios: AxiosInstance;
+  }
+}
+
+export const axios = Axios.create({
   baseURL: "http://localhost:8000",
   headers: {
     "Content-Type": "application/json",
@@ -27,4 +34,8 @@ axios.interceptors.response.use(
   },
 );
 
-export default axios;
+export default {
+  install: (app) => {
+    app.config.globalProperties.$axios = axios;
+  },
+} as Plugin;
