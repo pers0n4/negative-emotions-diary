@@ -12,10 +12,11 @@ import "quasar/src/css/index.sass";
 import App from "./App.vue";
 import axios from "./plugins/axios";
 import router from "./router";
+import store from "./store";
 
 const app = createApp(App);
 
-app.use(router).use(Quasar, {
+app.use(router).use(store).use(Quasar, {
   lang: quasarLang,
   iconSet: quasarIconSet,
 });
