@@ -75,7 +75,7 @@
       };
     },
     methods: {
-      ...mapActions(["signup"]),
+      ...mapActions("auth", ["register"]),
       async signup() {
         const { email, password, passwordConfirm } = this;
 
@@ -84,7 +84,7 @@
         }
 
         try {
-          await this.signup({ email, password });
+          await this.register({ email, password });
 
           this.$router.push("/signin");
         } catch (error) {

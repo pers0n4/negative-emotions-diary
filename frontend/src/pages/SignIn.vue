@@ -65,7 +65,7 @@
       };
     },
     methods: {
-      ...mapActions(["authenticate"]),
+      ...mapActions("auth", ["authenticate"]),
       async signin() {
         const { email, password } = this;
 
