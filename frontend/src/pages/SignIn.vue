@@ -7,18 +7,11 @@
         </q-card-section>
         <q-card-section>
           <q-form class="q-gutter-md">
-            <q-input
-              outlined
-              clearable
-              v-model="email"
-              type="email"
-              label="Email"
-            >
+            <q-input outlined v-model="email" type="email" label="Email">
               <template v-slot:prepend><q-icon name="mdi-email" /></template>
             </q-input>
             <q-input
               outlined
-              clearable
               v-model="password"
               type="password"
               label="Password"
