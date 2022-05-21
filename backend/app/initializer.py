@@ -3,11 +3,12 @@ from tortoise.contrib.fastapi import register_tortoise
 
 
 def init_router(app: FastAPI):
-    from app.routers import auth, diary, user
+    from app.routers import affect, auth, diary, user
 
     app.include_router(user.router)
     app.include_router(auth.router)
     app.include_router(diary.router)
+    app.include_router(affect.router)
 
 
 def init_database(app: FastAPI):
