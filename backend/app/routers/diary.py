@@ -11,13 +11,13 @@ router = APIRouter(
 
 
 @router.get("", response_model=list[DiaryRead], status_code=status.HTTP_200_OK)
-async def read_diarys(
+async def read_diaries(
     limit: int = Query(default=100, le=100),
     offset: int = 0,
     current_user: User = Depends(get_current_user),
 ):
-    diarys = await Diary.filter(user_id=current_user.id).limit(limit).offset(offset)
-    return diarys
+    diaries = await Diary.filter(user_id=current_user.id).limit(limit).offset(offset)
+    return diaries
 
 
 @router.post("", response_model=DiaryRead, status_code=status.HTTP_201_CREATED)
