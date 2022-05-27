@@ -18,21 +18,18 @@ class Affect(str, Enum):
 
 
 class DiaryCreate(BaseModel):
-    title: str
     content: str
     affect: Affect
 
 
 class DiaryRead(BaseModel):
     id: UUID
-    title: str
     content: str
     affect: Affect
 
 
 class Diary(BaseModel):
     id: UUID
-    title: str
     content: str
     affect: Affect
 
