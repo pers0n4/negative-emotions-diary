@@ -1,5 +1,7 @@
 <template>
-  <q-page class="window-height window-width row justify-center items-center">
+  <q-page
+    class="window-height-50% window-width-20% row justify-center items-center"
+  >
     <div class="column col-lg-3 col-md-4 col-sm-6">
       <q-card square bordered class="shadow-24">
         <q-card-section>
@@ -23,7 +25,7 @@
         <q-card-actions class="q-px-md q-mb-md">
           <q-btn
             flat
-            color="primary"
+            color="indigo-4"
             label="Create account"
             no-caps
             to="/signup"
@@ -32,7 +34,7 @@
           <q-space />
           <q-btn
             unelevated
-            color="primary"
+            color="indigo-4"
             label="Next"
             no-caps
             padding="xs md"
