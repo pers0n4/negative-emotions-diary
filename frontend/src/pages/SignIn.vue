@@ -48,33 +48,33 @@
 </template>
 
 <script>
-  import { defineComponent } from "vue";
-  import { mapActions } from "vuex";
+import { defineComponent } from "vue";
+import { mapActions } from "vuex";
 
-  export default defineComponent({
-    name: "SignInPage",
-    data() {
-      return {
-        email: "",
-        password: "",
-      };
+export default defineComponent({
+  name: "SignInPage",
+  data() {
+    return {
+      email: "",
+      password: "",
+    };
+  },
+  methods: {
+    ...mapActions("auth", ["authenticate"]),
+    async signin() {
+      const { email, password } = this;
+
+      try {
+        await this.authenticate({
+          username: email,
+          password,
+        });
+
+        this.$router.push("/");
+      } catch (error) {
+        alert(error.response.data.message);
+      }
     },
-    methods: {
-      ...mapActions("auth", ["authenticate"]),
-      async signin() {
-        const { email, password } = this;
-
-        try {
-          await this.authenticate({
-            username: email,
-            password,
-          });
-
-          this.$router.push("/");
-        } catch (error) {
-          alert(error.response.data.message);
-        }
-      },
-    },
-  });
+  },
+});
 </script>

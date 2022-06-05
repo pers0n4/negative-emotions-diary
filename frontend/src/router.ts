@@ -28,7 +28,7 @@ const routes = [
   {
     path: "/emotions_graph",
     name: "emotions_graph",
-    component: () => import("./pages/emotions_graph.vue")
+    component: () => import("./pages/emotions_graph.vue"),
   },
 
   {

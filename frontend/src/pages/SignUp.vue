@@ -56,35 +56,35 @@
 </template>
 
 <script>
-  import { defineComponent } from "vue";
-  import { mapActions } from "vuex";
+import { defineComponent } from "vue";
+import { mapActions } from "vuex";
 
-  export default defineComponent({
-    name: "SignUpPage",
-    data() {
-      return {
-        email: "",
-        password: "",
-        passwordConfirm: "",
-      };
+export default defineComponent({
+  name: "SignUpPage",
+  data() {
+    return {
+      email: "",
+      password: "",
+      passwordConfirm: "",
+    };
+  },
+  methods: {
+    ...mapActions("auth", ["register"]),
+    async signup() {
+      const { email, password, passwordConfirm } = this;
+
+      if (password !== passwordConfirm) {
+        return alert("Passwords do not match");
+      }
+
+      try {
+        await this.register({ email, password });
+
+        this.$router.push("/signin");
+      } catch (error) {
+        alert(error.response.data.message);
+      }
     },
-    methods: {
-      ...mapActions("auth", ["register"]),
-      async signup() {
-        const { email, password, passwordConfirm } = this;
-
-        if (password !== passwordConfirm) {
-          return alert("Passwords do not match");
-        }
-
-        try {
-          await this.register({ email, password });
-
-          this.$router.push("/signin");
-        } catch (error) {
-          alert(error.response.data.message);
-        }
-      },
-    },
-  });
+  },
+});
 </script>
