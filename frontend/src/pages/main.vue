@@ -1,76 +1,74 @@
 <template>
 <div class="row" id = "back">
   <div class="col-8" id = "main_column">
-       
-       <div class="column" style="height: 525px"> 
-          <div class="q-pa-md">
-          <div class="col" id = "diary_search">
+    <div class="column" style="height: 600px"> 
+       <div class="q-pa-md">
+        <div class="col" id = "diary_search">
            
            <q-toolbar class="bg-indigo-4 text-white rounded-borders">
-            <q-btn round dense flat icon="mdi-book-open-variant" />
-            <span>다이어리 검색</span>
-        <q-space />
+           <q-btn round dense flat icon="mdi-book-open-variant" />
+           <span>다이어리 검색</span>
+           <q-space />
 
-        <q-input dark dense standout v-model="search" filled type="search" style="width: 500px">
-          <template v-slot:append>
+            <q-input dark dense standout v-model="search" filled type="search" style="width: 500px">
+            <template v-slot:append>
             <q-icon v-if="text === ''" name="mdi-magnify" />
             <q-icon v-else class="cursor-pointer" @click="text = ''" name="mdi-magnify" />
-          </template>
-        </q-input>
+            </template>
+            </q-input>
 
-      </q-toolbar>
+           </q-toolbar>
 
-    </div>
-  </div>
-
-<div>
-         <div class="col-9" id = "diary_write"> 
-  
-    <q-card class="my-card bg-indigo-2 text-black">
-      <q-card-section>
-         <q-card-actions vertical align="center"> 
-           <q-btn flat to="/Wdiary">
-             <q-icon name="mdi-account"/>
-             다이어리 작성
-             </q-btn>
-             </q-card-actions>
-      </q-card-section>
-
-    </q-card>             
-
-    <q-card class="my-card bg-indigo-6 text-white">
-      <q-card-section>
-        <div class="text">다이어리 작성한 글 최신순으로1</div>
-      </q-card-section>
-    </q-card>
-
-      <q-card class="my-card bg-indigo-5 text-white">
-      <q-card-section>
-              <div class="text">다이어리 작성한 글 최신순으로2</div>
-            </q-card-section>
-      </q-card>
-
-      <q-card class="my-card bg-indigo-4 text-white">
-      <q-card-section>
-              <div class="text">다이어리 작성한 글 최신순으로3</div>
-            </q-card-section>
-      </q-card>
-
-      <q-card class="my-card bg-indigo-3 text-white">
-      <q-card-section>
-              <div class="text">다이어리 작성한 글 최신순으로4</div>
-            </q-card-section>
-      </q-card>
-
-      <q-card class="my-card bg-indigo-2 text-white">
-      <q-card-section>
-              <div class="text">다이어리 작성한 글 최신순으로5</div>
-            </q-card-section>
-      </q-card>
-
-         </div>
          </div>
        </div>
+
+     <div>
+      <div class="col-9" id = "diary_write"> 
+  
+        <q-card class="my-card bg-indigo-2 text-black">
+          <q-card-section>
+            <q-card-actions vertical align="center"> 
+              <q-btn flat to="/Wdiary">
+                <q-icon name="mdi-account"/>
+                다이어리 작성
+              </q-btn>
+            </q-card-actions>
+          </q-card-section>
+        </q-card>             
+
+        <q-card class="my-card bg-indigo-6 text-white">
+          <q-card-section>
+            <div class="text">{{data1}}</div>
+          </q-card-section>
+        </q-card>
+
+        <q-card class="my-card bg-indigo-5 text-white">
+        <q-card-section>
+                <div class="text">{{data2}}</div>
+              </q-card-section>
+        </q-card>
+
+        <q-card class="my-card bg-indigo-4 text-white">
+        <q-card-section>
+                <div class="text">{{data3}}</div>
+              </q-card-section>
+        </q-card>
+
+        <q-card class="my-card bg-indigo-3 text-white">
+        <q-card-section>
+                <div class="text">{{data4}}</div>
+              </q-card-section>
+        </q-card>
+
+        <q-card class="my-card bg-indigo-2 text-white">
+        <q-card-section>
+                <div class="text">{{data5}}</div>
+              </q-card-section>
+        </q-card>
+
+      </div>
+     </div>
+    </div>
   </div>
 
   <div class="col-4" id = "main_column">
@@ -94,7 +92,15 @@
 <script>
 
 export default {
-  name: 'App'
+   setup () {
+    return {
+  data1 : "다이어리 작성한 글 최신순으로1",
+  data2 : "다이어리 작성한 글 최신순으로2",
+  data3 : "다이어리 작성한 글 최신순으로3",
+  data4 : "다이어리 작성한 글 최신순으로4",
+  data5 : "다이어리 작성한 글 최신순으로5",
+    }
+}
 }
 
 </script>
