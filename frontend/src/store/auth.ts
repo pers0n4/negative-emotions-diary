@@ -11,6 +11,11 @@ export const auth: Module<AuthState, RootState> = {
   state: () => ({
     token: null,
   }),
+  getters: {
+    isAuthenticated(state) {
+      return Boolean(state.token);
+    },
+  },
   mutations: {
     setToken(state, token: string) {
       state.token = token;
@@ -20,7 +25,7 @@ export const auth: Module<AuthState, RootState> = {
     async register(_context, { email, password }) {
       return axios.post("/users", { email, password });
     },
-    async authenticate(
+    async login(
       { commit },
       userData: {
         username: string;
@@ -34,6 +39,9 @@ export const auth: Module<AuthState, RootState> = {
       });
       commit("setToken", response.data.access_token);
       return response;
+    },
+    async logout({ commit }) {
+      commit("setToken", null);
     },
   },
 };
