@@ -1,7 +1,5 @@
 <template>
-  <q-page
-    class="window-height-50% window-width-20% row justify-center items-center"
-  >
+  <q-page class="row justify-center items-center">
     <div class="column col-lg-3 col-md-4 col-sm-6">
       <q-card square bordered class="shadow-24">
         <q-card-section>
@@ -33,7 +31,7 @@
         <q-card-actions class="q-px-md q-mb-md">
           <q-btn
             flat
-            color="indigo-4"
+            color="primary"
             label="Sign in instead"
             no-caps
             to="/signin"
@@ -42,7 +40,7 @@
           <q-space />
           <q-btn
             unelevated
-            color="indigo-4"
+            color="primary"
             label="Next"
             no-caps
             padding="xs md"
@@ -80,7 +78,7 @@ export default defineComponent({
       try {
         await this.register({ email, password });
 
-        this.$router.push("/signin");
+        this.$router.push({ name: "SignIn" });
       } catch (error) {
         alert(error.response.data.message);
       }
