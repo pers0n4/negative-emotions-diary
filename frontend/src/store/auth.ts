@@ -9,7 +9,7 @@ export interface AuthState {
 export const auth: Module<AuthState, RootState> = {
   namespaced: true,
   state: () => ({
-    token: null,
+    token: window?.localStorage.getItem("access_token") || null,
   }),
   getters: {
     isAuthenticated(state) {
@@ -19,6 +19,7 @@ export const auth: Module<AuthState, RootState> = {
   mutations: {
     setToken(state, token: string) {
       state.token = token;
+      window?.localStorage.setItem("access_token", token);
     },
   },
   actions: {
