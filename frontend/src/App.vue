@@ -1,54 +1,46 @@
 <template>
   <q-layout view="hhh lpr fFf">
-    <q-header elevated class="bg-indigo-1 text-black">
+    <q-header elevated class="bg-primary text-white" height-hint="98">
       <q-toolbar>
-        <q-btn flat @click="drawer = !drawer" round dense icon="mdi-menu" />
+        <q-btn dense flat round icon="mdi-menu" @click="toggleLeftDrawer" />
         <q-toolbar-title>EUNOIA</q-toolbar-title>
         <q-space />
 
         <div class="q-gutter-sm row items-center no-wrap">
-          <q-btn round flat icon="mdi-account" to="/signin">
+          <q-btn round flat icon="mdi-account" v-if="isAuthenticated">
+            <q-tooltip>Account</q-tooltip>
+            <q-menu>
+              <q-list style="min-width: 100px">
+                <q-item clickable @click="signOut">
+                  <q-item-section>Logout</q-item-section>
+                </q-item>
+              </q-list>
+            </q-menu>
+          </q-btn>
+          <q-btn round flat icon="mdi-account" to="/signin" v-else>
             <q-tooltip>Account</q-tooltip>
           </q-btn>
         </div>
       </q-toolbar>
     </q-header>
 
-    <!--메뉴 고정 / 복붙한거라 잘 모름-->
-    <q-drawer
-      v-model="drawer"
-      show-if-above
-      :width="230"
-      :breakpoint="500"
-      bordered
-      class="bg-indigo-1"
-    >
-      <!--메뉴 이름-->
+    <q-drawer v-model="leftDrawerOpen" show-if-above :width="200" bordered>
       <q-list>
-        <q-item clickable to="/main">
-          <q-item-section avatar>
-            <q-icon name="mdi-home" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Home</q-item-label>
-          </q-item-section>
-        </q-item>
-
-        <q-item clickable to="/Wdiary">
+        <q-item clickable :to="{ name: 'DiaryRead' }">
           <q-item-section avatar>
             <q-icon name="mdi-book-open-variant" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>다이어리 작성</q-item-label>
+            <q-item-label>다이어리 보기</q-item-label>
           </q-item-section>
         </q-item>
 
-        <q-item clickable to="/Search_diary">
+        <q-item clickable :to="{ name: 'DiaryWrite' }">
           <q-item-section avatar>
-            <q-icon name="mdi-magnify" />
+            <q-icon name="mdi-pencil" />
           </q-item-section>
           <q-item-section>
-            <q-item-label>다이어리 조회</q-item-label>
+            <q-item-label>다이어리 쓰기</q-item-label>
           </q-item-section>
         </q-item>
 
@@ -61,7 +53,7 @@
           </q-item-section>
         </q-item>
 
-        <q-item clickable to="/emotions_graph">
+        <q-item clickable to="/">
           <q-item-section avatar>
             <q-icon name="mdi-chart-bar" />
           </q-item-section>
@@ -80,6 +72,7 @@
 
 <script>
 import { ref } from "vue";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   setup() {
@@ -92,12 +85,15 @@ export default {
       },
     };
   },
-
-  data() {
-    return {
-      email: "",
-      password: "",
-    };
+  computed: {
+    ...mapGetters("auth", ["isAuthenticated"]),
+  },
+  methods: {
+    ...mapActions("auth", ["logout"]),
+    signOut() {
+      this.logout();
+      this.$router.push({ name: "SignIn" });
+    },
   },
 };
 </script>
