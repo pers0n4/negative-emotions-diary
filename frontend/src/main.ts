@@ -1,4 +1,4 @@
-import { Quasar, Notify } from "quasar";
+import { colors, Notify, Quasar } from "quasar";
 import quasarIconSet from "quasar/icon-set/svg-mdi-v6";
 import quasarLang from "quasar/lang/ko-KR";
 import { createApp } from "vue";
@@ -23,6 +23,11 @@ createApp(App)
     iconSet: quasarIconSet,
     plugins: {
       Notify,
+    },
+    config: {
+      brand: {
+        primary: colors.getPaletteColor("indigo"),
+      },
     },
   })
   .mount("#app");
