@@ -1,3 +1,4 @@
+from datetime import datetime
 from enum import Enum
 from uuid import UUID
 
@@ -26,14 +27,17 @@ class DiaryRead(BaseModel):
     id: UUID
     content: str
     affect: Affect
+    created_at: datetime
+    updated_at: datetime
 
 
 class Diary(BaseModel):
     id: UUID
     content: str
     affect: Affect
-
     user_id: UUID
+    created_at: datetime
+    updated_at: datetime
 
     class Config:
         orm_mode = True
