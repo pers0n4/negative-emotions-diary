@@ -53,7 +53,13 @@ export default {
     };
   },
   methods: {
-    save() {
+    async save() {
+      await this.$axios.post("/diaries", {
+        content: this.editor,
+        affect: this.emotions.find(
+          (emotion) => emotion.value === this.selectModel.value,
+        ).label,
+      });
       this.$router.push({ name: "DiaryRead" });
     },
   },
