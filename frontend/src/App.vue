@@ -53,7 +53,7 @@
           </q-item-section>
         </q-item>
 
-        <q-item clickable to="/">
+        <q-item clickable :to="{ name: 'Graph' }">
           <q-item-section avatar>
             <q-icon name="mdi-chart-bar" />
           </q-item-section>

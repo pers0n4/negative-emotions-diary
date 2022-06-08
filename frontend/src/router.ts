@@ -31,9 +31,9 @@ const routes = [
     meta: { auth: true },
   },
   {
-    path: "/emotions_graph",
-    name: "emotions_graph",
-    component: () => import("./pages/emotions_graph.vue"),
+    path: "/graph",
+    name: "Graph",
+    component: () => import("./pages/Graph.vue"),
   },
 
   {
