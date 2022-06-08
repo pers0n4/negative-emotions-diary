@@ -21,6 +21,11 @@ export const auth: Module<AuthState, RootState> = {
       state.token = token;
       window?.localStorage.setItem("access_token", token);
     },
+    removeToken(state) {
+      state.token = null;
+      window?.localStorage.removeItem("access_token");
+      delete axios.defaults.headers.common["Authorization"];
+    },
   },
   actions: {
     async register(_context, { email, password }) {
@@ -42,7 +47,7 @@ export const auth: Module<AuthState, RootState> = {
       return response;
     },
     async logout({ commit }) {
-      commit("setToken", null);
+      commit("removeToken");
     },
   },
 };
