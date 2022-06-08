@@ -16,7 +16,12 @@ async def read_diaries(
     offset: int = 0,
     current_user: User = Depends(get_current_user),
 ):
-    diaries = await Diary.filter(user_id=current_user.id).limit(limit).offset(offset)
+    diaries = (
+        await Diary.filter(user_id=current_user.id)
+        .limit(limit)
+        .offset(offset)
+        .order_by("-created_at")
+    )
     return diaries
 
 
