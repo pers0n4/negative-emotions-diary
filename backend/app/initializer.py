@@ -1,6 +1,5 @@
 from app.models import Diary, User
 from fastapi import FastAPI
-from tortoise import run_async
 from tortoise.contrib.fastapi import register_tortoise
 from yaml import load
 
@@ -33,13 +32,23 @@ def init_database(app: FastAPI):
 
 
 async def init_data():
-    with open("./data/data.yaml", "r") as f:
-        data = load(f, Loader=Loader)
-
+    user = await User.get_or_none(email="test@example.org")
+    if user is None:
         user = await User.create(
             email="test@example.org", password=get_password_hash("test")
         )
 
+    with open("./data/data_hj.yaml", "r") as f:
+        data = load(f, Loader=Loader)
+        await Diary.bulk_create(
+            [
+                Diary(content=item["content"], affect=item["affect"], user_id=user.id)
+                for item in data
+            ]
+        )
+
+    with open("./data/data_mj.yaml", "r") as f:
+        data = load(f, Loader=Loader)
         await Diary.bulk_create(
             [
                 Diary(content=item["content"], affect=item["affect"], user_id=user.id)
