@@ -44,7 +44,7 @@
           </q-item-section>
         </q-item>
 
-        <q-item clickable to="/">
+        <q-item clickable :to="{ name: 'Affect' }">
           <q-item-section avatar>
             <q-icon name="mdi-emoticon-neutral-outline" />
           </q-item-section>

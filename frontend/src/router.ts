@@ -35,7 +35,11 @@ const routes = [
     name: "Graph",
     component: () => import("./pages/Graph.vue"),
   },
-
+  {
+    path: "/affect",
+    name: "Affect",
+    component: () => import("./pages/Affect.vue"),
+  },
   {
     path: "/:pathMatch(.*)*",
     name: "NotFound",
