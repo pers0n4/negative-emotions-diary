@@ -7,12 +7,12 @@ from app.models.user import User
 from fastapi import APIRouter, Depends, status
 
 router = APIRouter(
-    prefix="/affects",
-    tags=["affects"],
+    prefix="/statistics",
+    tags=["statistics"],
 )
 
 
-@router.get("", status_code=status.HTTP_200_OK)
+@router.get("/affects", status_code=status.HTTP_200_OK)
 async def read_affects(
     current_user: User = Depends(get_current_user),
 ):

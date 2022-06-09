@@ -13,12 +13,12 @@ from app.core.auth import get_password_hash
 
 
 def init_router(app: FastAPI):
-    from app.routers import affect, auth, diary, user
+    from app.routers import auth, diary, statistics, user
 
     app.include_router(user.router)
     app.include_router(auth.router)
     app.include_router(diary.router)
-    app.include_router(affect.router)
+    app.include_router(statistics.router)
 
 
 def init_database(app: FastAPI):

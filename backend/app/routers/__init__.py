@@ -1,1 +1,1 @@
-from . import affect, auth, diary, user
+from . import auth, diary, statistics, user
