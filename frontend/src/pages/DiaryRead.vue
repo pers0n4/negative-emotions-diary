@@ -6,12 +6,23 @@
       :rows="rows"
       :columns="columns"
       row-key="id"
-      :filter="filter"
+      :filter="{ selectModel, filter }"
+      :filter-method="filterMethod"
       hide-header
       :rows-per-page-options="[0]"
       class="col-8"
     >
       <template v-slot:top-right>
+        <q-select
+          clearable
+          borderless
+          v-model="selectModel"
+          :options="selectOption"
+        >
+          <template v-slot:prepend>
+            <q-icon name="mdi-filter" />
+          </template>
+        </q-select>
         <q-input
           borderless
           dense
@@ -72,6 +83,19 @@ export default defineComponent({
   setup() {
     const rows = ref([]);
     const filter = ref("");
+    const selectOption = ref([
+      "적대감",
+      "짜증",
+      "부끄럼",
+      "죄책감",
+      "괴로움",
+      "화",
+      "겁",
+      "두려움",
+      "조바심",
+      "불안",
+    ]);
+    const selectModel = ref("");
 
     const affects = ref({});
     const option = computed(() => ({
@@ -165,6 +189,20 @@ export default defineComponent({
         },
       ],
       filter,
+      filterMethod: (data, { selectModel, filter }) => {
+        if (selectModel) {
+          data = data.filter((row) => row.affect === selectModel);
+        }
+        if (filter) {
+          data = data.filter((row) =>
+            row.content.toLowerCase().includes(filter.toLowerCase()),
+          );
+        }
+        return data;
+      },
+
+      selectOption,
+      selectModel,
 
       option,
       wordCloud,
@@ -176,10 +214,4 @@ export default defineComponent({
 <style lang="sass">
 .chart
   height: 400px
-
-#emotion_graph
-  border: 2px double red
-
-#word_cloud
-  border: 2px double red
 </style>
