@@ -29,6 +29,9 @@
         <div class="q-pa-xs col-xs-12 col-sm-6">
           <q-card>
             <q-card-section v-html="props.row.content" />
+            <q-card-section>
+              <q-chip>{{ props.row.affect }}</q-chip>
+            </q-card-section>
           </q-card>
         </div>
       </template>
