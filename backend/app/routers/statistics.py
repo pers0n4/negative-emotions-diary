@@ -1,3 +1,4 @@
+from collections import Counter
 from itertools import groupby
 from operator import itemgetter
 
@@ -23,3 +24,12 @@ async def read_affects(
     )
 
     return dict((k, list(g)) for k, g in groupby(diaries, key=itemgetter("affect")))
+
+
+@router.get("/entities", status_code=status.HTTP_200_OK)
+async def read_entities(
+    current_user: User = Depends(get_current_user),
+):
+    diaries = await Diary.filter(user_id=current_user.id)
+    entities = [entity["Text"] for diary in diaries for entity in diary.entities]
+    return Counter(entities)
