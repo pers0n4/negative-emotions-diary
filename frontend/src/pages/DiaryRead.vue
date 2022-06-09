@@ -104,7 +104,7 @@ export default defineComponent({
     }
 
     function fetchAffects() {
-      axios.get("/affects").then((response) => {
+      axios.get("/statistics/affects").then((response) => {
         affects.value = response.data;
       });
     }
