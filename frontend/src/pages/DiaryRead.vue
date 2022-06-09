@@ -36,6 +36,7 @@
 
     <div class="col-4">
       <v-chart class="chart" :option="option" autoresize />
+      <v-chart class="chart" :option="wordCloud" autoresize />
     </div>
   </q-page>
 </template>
@@ -50,9 +51,9 @@ import {
 } from "echarts/components";
 import { use } from "echarts/core";
 import { SVGRenderer } from "echarts/renderers";
-import { useQuasar } from "quasar";
 import { computed, defineComponent, ref } from "vue";
 import { axios } from "../plugins/axios";
+import "echarts-wordcloud";
 
 use([SVGRenderer, PieChart, TitleComponent, TooltipComponent, LegendComponent]);
 
@@ -66,8 +67,6 @@ export default defineComponent({
     },
   },
   setup() {
-    const $q = useQuasar();
-
     const rows = ref([]);
     const filter = ref("");
 
@@ -97,6 +96,41 @@ export default defineComponent({
       ],
     }));
 
+    const entities = ref({});
+    const wordCloud = computed(() => ({
+      series: [
+        {
+          type: "wordCloud",
+          // shape: "circle",
+          // keepAspect: false,
+          // left: "center",
+          // top: "center",
+          // width: "70%",
+          // height: "80%",
+          // right: null,
+          // bottom: null,
+          // sizeRange: [12, 60],
+          // rotationRange: [-90, 90],
+          // rotationStep: 45,
+          // gridSize: 8,
+          // drawOutOfBound: false,
+          // layoutAnimation: true,
+          textStyle: {
+            fontFamily: "sans-serif",
+            fontWeight: "bold",
+            // color() {},
+          },
+          emphasis: {
+            focus: "self",
+          },
+          data: Object.entries(entities.value).map(([name, value]) => ({
+            name,
+            value,
+          })),
+        },
+      ],
+    }));
+
     function fetchDiaries() {
       axios.get("/diaries").then((response) => {
         rows.value = response.data;
@@ -109,8 +143,15 @@ export default defineComponent({
       });
     }
 
+    function fetchEntities() {
+      axios.get("/statistics/entities").then((response) => {
+        entities.value = response.data;
+      });
+    }
+
     fetchDiaries();
     fetchAffects();
+    fetchEntities();
 
     return {
       rows,
@@ -123,6 +164,7 @@ export default defineComponent({
       filter,
 
       option,
+      wordCloud,
     };
   },
 });
